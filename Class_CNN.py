@@ -18,7 +18,7 @@ class CNN_Model(nn.Module):
         x = self.pool(F.relu(self.conv2(x)))  # -> n, 16, 13, 13
         x = x.view(-1, 16 * 13 * 13)            # -> n, 2704
         x = F.relu(self.fc1(x))               # -> n, 120
-        x = F.relu(self.fc2(x))               # -> n, 84
-        x = self.fc3(x)                       # -> n, 10
+        x = F.relu(self.fc2(x))               # -> n, 60
+        x = self.fc3(x)                       # -> n, 1
         x = torch.sigmoid(x)
         return x
