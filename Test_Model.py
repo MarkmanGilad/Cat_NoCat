@@ -1,12 +1,9 @@
 import torch
-import torch.nn as nn
-import torch.nn.functional as F
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn import datasets
 from sklearn.model_selection import train_test_split
-
 from torch.utils.data import DataLoader, TensorDataset
+from Class_CNN import CNN_Model
 
 # Device configuration
 if torch.cuda.is_available:
@@ -15,26 +12,7 @@ else:
   device = torch.device('cpu')
 print(device)
 
-class CNN_Model(nn.Module):
-    def __init__(self):
-        super(CNN_Model, self).__init__()
-        self.conv1 = nn.Conv2d(3, 6, 5)
-        self.pool = nn.MaxPool2d(2, 2)
-        self.conv2 = nn.Conv2d(6, 16, 5)
-        self.fc1 = nn.Linear(16 * 13 * 13, 120)
-        self.fc2 = nn.Linear(120, 60)
-        self.fc3 = nn.Linear(60, 1)
 
-    def forward(self, x):
-        # -> n, 3, 64, 64
-        x = self.pool(F.relu(self.conv1(x)))  # -> n, 6, 30, 30
-        x = self.pool(F.relu(self.conv2(x)))  # -> n, 16, 13, 13
-        x = x.view(-1, 16 * 13 * 13)            # -> n, 2704
-        x = F.relu(self.fc1(x))               # -> n, 120
-        x = F.relu(self.fc2(x))               # -> n, 84
-        x = self.fc3(x)                       # -> n, 10
-        x = torch.sigmoid(x)
-        return x
 
 
 # prepare data
@@ -62,7 +40,7 @@ data_test = data_test / 255
 
 
 # use pytorch dataset and dataloader
-batch_size = 25
+batch_size = 10
 data_train = TensorDataset(data_train, target_train)
 data_test = TensorDataset(data_test, target_test)
 

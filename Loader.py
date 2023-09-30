@@ -8,10 +8,6 @@ import torch
 file = 'Data/cats.pth'
 data, labels = torch.load(file)
 
-# x_tensor = torch.tensor(x)
-# y_tensor = torch.tensor(y)
-# ds = TensorDataset(x_tensor, y_tensor)
-
 print(data.shape, labels.shape)
 print(data[25])
 # Example of a picture
