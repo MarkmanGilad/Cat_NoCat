@@ -75,8 +75,8 @@ test_loader = DataLoader(dataset=data_test, batch_size=batch_size, shuffle=False
 dataiter = iter(train_loader)
 for i in range(4):
     images, labels = next(dataiter)
-    for j in range(batch_size):
-        plt.subplot(4,batch_size,i*batch_size+j+1)
+    for j in range(0, 10):
+        plt.subplot(4,10,i*10+j+1)
         plt.imshow((images[j].permute(1,2,0).numpy()*255).astype(np.int0))
         plt.title(labels[j].item())
 plt.show()
@@ -145,13 +145,13 @@ with torch.no_grad():
 
 with torch.no_grad():
     dataiter = iter(train_loader)
-    for i in range(1):
+    for i in range(4):
         images, labels = next(dataiter)
         images_gpu = images.to(device)
         y_predict = Model(images_gpu).cpu()
         y_predict = y_predict > 0.5
-        for j in range(batch_size):
-            plt.subplot(4,batch_size,i*batch_size+j+1)
-            plt.imshow((images[j].permute(1,2,0).numpy()*255).astype(np.int0))
+        for j in range(10):
+            plt.subplot(4,10,i*10+j+1)
+            plt.imshow((images[j].permute(1,2,0).numpy()*255).astype(np.intp))
             plt.title(y_predict[j].item())
     plt.show()
