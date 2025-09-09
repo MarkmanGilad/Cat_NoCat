@@ -77,7 +77,7 @@ for i in range(4):
     images, labels = next(dataiter)
     for j in range(0, 10):
         plt.subplot(4,10,i*10+j+1)
-        plt.imshow((images[j].permute(1,2,0).numpy()*255).astype(np.int0))
+        plt.imshow((images[j].permute(1,2,0).numpy()*255).astype(np.intp))
         plt.title(labels[j].item())
 plt.show()
 
